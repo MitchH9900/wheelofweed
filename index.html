@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wietrad - Deelnemers Toevoegen</title>
+    <style>
+        body {
+            background-color: #e0f7fa;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+            text-align: center;
+            color: #388e3c;
+        }
+
+        h1 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #2e7d32;
+        }
+
+        input {
+            padding: 10px;
+            margin: 10px 0;
+            width: 200px;
+            border-radius: 5px;
+            border: 2px solid #388e3c;
+            font-size: 1em;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #388e3c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.2em;
+        }
+
+        button:hover {
+            background-color: #2e7d32;
+        }
+
+        .participants-list {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+
+        .button-container {
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Voeg Deelnemers toe aan het Wietrad!</h1>
+
+    <input type="text" id="playerName" placeholder="Voer een naam in" />
+    <button onclick="addPlayer()">Voeg toe</button>
+
+    <div class="participants-list" id="participants"></div>
+
+    <div class="button-container">
+        <button onclick="startGame()">Start het Rad van Fortuin!</button>
+    </div>
+
+    <script>
+        let players = [];
+
+        function addPlayer() {
+            const playerName = document.getElementById('playerName').value.trim();
+            if (playerName && !players.includes(playerName)) {
+                players.push(playerName);
+                const playerList = document.createElement('div');
+                playerList.textContent = playerName;
+                document.getElementById('participants').appendChild(playerList);
+            }
+            document.getElementById('playerName').value = ''; // Maak het invoerveld leeg
+        }
+
+        function startGame() {
+            if (players.length > 0) {
+                // Sla de deelnemers op in de sessionStorage zodat we deze op de volgende pagina kunnen gebruiken
+                sessionStorage.setItem('players', JSON.stringify(players));
+                window.location.href = 'rad.html'; // Navigeer naar de tweede pagina
+            } else {
+                alert("Voeg eerst deelnemers toe!");
+            }
+        }
+    </script>
+
+</body>
+</html>
